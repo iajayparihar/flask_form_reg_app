@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Student Registration</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+        <!-- Optional: Add your custom styles here -->
+        <style>
+            /* Add any custom styles here */
+            body {
+                padding: 20px;
+            }
+
+            form {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="">
+            <div class="row">
+                <!-- form column -->
+                <div class="col-4" style="background-color: lightblue;">
+
+                    <h1 class="mt-5 mb-4">Student Registration</h1>
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    <div id="flash-messages">
+                        {% for category, message in messages %}
+                        <div class="alert alert-{{category}}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- flash message disapper in 5 sec -->
+                    <script>
+                        setTimeout(function () {
+                            document.getElementById('flash-messages').innerHTML = '';
+                        }, 5000);
+                    </script>
+                    {% endif %}
+                    {% endwith %}
+
+                    <form method="post" class="mb-4" style='margin-left: 0px;margin-right: 0px;'>
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            <label for="{{ form.name.id }}">Name:</label>
+                            {{ form.name(class="form-control") }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.age.id }}">Age:</label>
+                            {{ form.age(class="form-control") }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.mob.id }}">Mobile:</label>
+                            {{ form.mob(class="form-control") }}
+                        </div>
+                        {{ form.submit(class="btn btn-primary") }}
+                    </form>
+
+                </div>
+                <!-- Register Student column -->
+                <div class="col-8" style="background-color: rgba(0, 0, 0, 0.223);">
+                    <h1 class="mt-5 mb-4">Registered Students:</h1>
+                    <ul class="list-group">
+                        {% if students|length == 0 %}
+                        <div class="alert alert-dark" role="alert">
+                            No Records found. Add your first Record now!
+                        </div>
+                        {% else %}
+                        {% for student in students %}
+                        <li class="list-group-item">
+                            <a href="/update/{{student.name}}" type="button" class="btn btn-outline-dark">Update</a>
+                            <a href="/delete/{{student.name}}" type="button" class="btn btn-outline-dark">Delete</a>
+
+                            {{ student.name }} :- {{ student.age }} years old and mobile no. is {{ student.mobile }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap JS and Popper.js -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+        <!-- Optional: Add your custom scripts here -->
+        <!-- <script src="script.js"></script> -->
+
+    </body>
+
+    </html>
+
+</html>
